@@ -12,28 +12,40 @@ const components = [
     id: '002',
     slug: 'fluid-cursor',
     title: 'Fluid Cursor',
-    status: 'active'
+    status: 'ready'
   },
   {
     id: '003',
+    slug: 'liquid-glass',
+    title: 'Liquid Glass',
+    status: 'ready'
+  },
+  {
+    id: '004',
+    slug: 'liquid-metal',
+    title: 'Liquid Metal',
+    status: 'ready'
+  },
+  {
+    id: '005',
     slug: 'text-reveal',
     title: 'Text Reveal',
     status: 'soon'
   },
   {
-    id: '004',
+    id: '006',
     slug: 'morphing-shapes',
     title: 'Morphing Shapes',
     status: 'soon'
   },
   {
-    id: '005',
+    id: '007',
     slug: 'scroll-velocity',
     title: 'Scroll Velocity',
     status: 'soon'
   },
   {
-    id: '006',
+    id: '008',
     slug: '3d-card',
     title: '3D Card Tilt',
     status: 'soon'
