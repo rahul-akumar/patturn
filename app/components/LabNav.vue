@@ -52,24 +52,36 @@ const components = [
   },
   {
     id: '009',
+    slug: 'gesture-ripple',
+    title: 'Gesture Ripple',
+    status: 'ready'
+  },
+  {
+    id: '010',
+    slug: 'toast-stack',
+    title: 'Toast Stack',
+    status: 'ready'
+  },
+  {
+    id: '011',
     slug: 'text-reveal',
     title: 'Text Reveal',
     status: 'soon'
   },
   {
-    id: '010',
+    id: '012',
     slug: 'morphing-shapes',
     title: 'Morphing Shapes',
     status: 'soon'
   },
   {
-    id: '011',
+    id: '013',
     slug: 'scroll-velocity',
     title: 'Scroll Velocity',
     status: 'soon'
   },
   {
-    id: '012',
+    id: '014',
     slug: '3d-card',
     title: '3D Card Tilt',
     status: 'soon'
