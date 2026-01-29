@@ -34,24 +34,30 @@ const components = [
   },
   {
     id: '006',
+    slug: 'explosive-button',
+    title: 'Explosive Button',
+    status: 'ready'
+  },
+  {
+    id: '007',
     slug: 'text-reveal',
     title: 'Text Reveal',
     status: 'soon'
   },
   {
-    id: '007',
+    id: '008',
     slug: 'morphing-shapes',
     title: 'Morphing Shapes',
     status: 'soon'
   },
   {
-    id: '008',
+    id: '009',
     slug: 'scroll-velocity',
     title: 'Scroll Velocity',
     status: 'soon'
   },
   {
-    id: '009',
+    id: '010',
     slug: '3d-card',
     title: '3D Card Tilt',
     status: 'soon'
@@ -107,7 +113,7 @@ const isActive = (slug: string) => {
 
     <!-- Footer -->
     <div class="border-t border-white/10 px-5 py-4">
-      <span class="font-mono text-[10px] text-white/30">Patnova v0.0.1</span>
+      <span class="font-mono text-[10px] text-white/30">Patturn v0.0.1</span>
     </div>
   </aside>
 </template>

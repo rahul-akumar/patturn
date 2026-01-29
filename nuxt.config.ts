@@ -21,7 +21,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Patnova — Experimental Design Lab',
+      title: 'Patturn — Experimental Design Lab',
       meta: [
         { name: 'description', content: 'An experimental playground for next-gen interfaces, interactions, and motion design.' },
         { name: 'theme-color', content: '#0a0a0a' }

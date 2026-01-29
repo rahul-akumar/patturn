@@ -8,7 +8,7 @@ const isLab = computed(() => route.path.startsWith('/lab'))
   <header class="fixed top-0 left-0 z-50 flex w-full items-center justify-between border-b border-white/10 bg-dark-900/80 px-6 py-5 backdrop-blur-md md:px-12">
     <div class="flex items-center gap-8">
       <NuxtLink to="/" class="font-mono text-xs tracking-[0.3em] uppercase transition-colors hover:text-white/70">
-        Patnova
+        Patturn
       </NuxtLink>
       <div class="h-4 w-px bg-white/20" />
       <nav class="flex items-center gap-6">

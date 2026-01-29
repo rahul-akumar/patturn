@@ -63,7 +63,7 @@ const setLabRef = (el: any, index: number) => {
         <h1 class="mb-4 overflow-hidden font-sans text-[12vw] font-bold leading-[0.85] tracking-[-0.04em] md:text-[10vw]">
           <span class="inline-block perspective-1000">
             <span
-              v-for="(char, i) in 'PATNOVA'.split('')"
+              v-for="(char, i) in 'PATTURN'.split('')"
               :key="i"
               :ref="(el) => setTitleRef(el, i)"
               class="inline-block"
@@ -151,7 +151,7 @@ const setLabRef = (el: any, index: number) => {
     <footer class="border-t border-white/10 px-6 py-12 md:px-12">
       <div class="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
         <div class="font-mono text-xs text-white/40">
-          © 2026 Patnova. Experimental Design Lab.
+          © 2026 Patturn. Experimental Design Lab.
         </div>
         <div class="flex items-center gap-8">
           <a href="#" class="font-mono text-xs text-white/40 transition-colors hover:text-white">GitHub</a>
