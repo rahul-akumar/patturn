@@ -8,6 +8,7 @@ definePageMeta({
 })
 
 const demoRef = ref<HTMLElement | null>(null)
+const cardRef = ref<HTMLElement | null>(null)
 const copied = ref(false)
 
 // Metal presets
@@ -47,7 +48,11 @@ const config = ref({
   // Glow
   glowEnabled: true,
   glowIntensity: 0.4,
-  glowSpread: 25
+  glowSpread: 25,
+  // Tilt
+  tiltEnabled: true,
+  tiltStrength: 15,
+  tiltDuration: 0.5
 })
 
 const defaults = {
@@ -65,7 +70,10 @@ const defaults = {
   shimmerSpeed: 4,
   glowEnabled: true,
   glowIntensity: 0.4,
-  glowSpread: 25
+  glowSpread: 25,
+  tiltEnabled: true,
+  tiltStrength: 15,
+  tiltDuration: 0.5
 }
 
 const applyPreset = (presetName: string) => {
@@ -107,6 +115,38 @@ onMounted(() => {
     ease: 'power4.out'
   })
 })
+
+// Tilt handlers
+const onMouseMove = (e: MouseEvent) => {
+  if (!cardRef.value || !config.value.tiltEnabled) return
+  
+  const rect = cardRef.value.getBoundingClientRect()
+  const x = e.clientX - rect.left
+  const y = e.clientY - rect.top
+  const centerX = rect.width / 2
+  const centerY = rect.height / 2
+  
+  const tiltX = ((y - centerY) / centerY) * config.value.tiltStrength
+  const tiltY = ((centerX - x) / centerX) * config.value.tiltStrength
+  
+  gsap.to(cardRef.value, {
+    rotateX: tiltX,
+    rotateY: tiltY,
+    duration: config.value.tiltDuration,
+    ease: 'power2.out'
+  })
+}
+
+const onMouseLeave = () => {
+  if (!cardRef.value) return
+  
+  gsap.to(cardRef.value, {
+    rotateX: 0,
+    rotateY: 0,
+    duration: 0.7,
+    ease: 'elastic.out(1, 0.5)'
+  })
+}
 
 const generatedCode = computed(() => {
   return `.liquid-metal-card {
@@ -193,15 +233,19 @@ const copyCode = async () => {
       <span class="mb-12 font-mono text-[10px] uppercase tracking-widest text-white/40">Interactive Demo</span>
       
       <!-- Liquid Metal Card -->
-      <div
-        class="liquid-metal-card relative w-full max-w-sm overflow-hidden"
-        :class="{ 
-          'border-effect': config.borderEnabled,
-          'fill-effect': config.fillEnabled,
-          'glow-effect': config.glowEnabled
-        }"
-        :style="cardStyle"
-      >
+      <div class="perspective-1000">
+        <div
+          ref="cardRef"
+          class="liquid-metal-card relative w-full max-w-sm overflow-hidden transform-gpu"
+          :class="{ 
+            'border-effect': config.borderEnabled,
+            'fill-effect': config.fillEnabled,
+            'glow-effect': config.glowEnabled
+          }"
+          :style="cardStyle"
+          @mousemove="onMouseMove"
+          @mouseleave="onMouseLeave"
+        >
         <!-- Shimmer overlay -->
         <div 
           v-if="config.shimmerEnabled"
@@ -235,10 +279,11 @@ const copyCode = async () => {
             <span class="text-xs" :class="config.fillEnabled ? 'text-black/50' : 'text-white/40'">v2.0</span>
           </div>
         </div>
+        </div>
       </div>
       
       <p class="mt-12 max-w-md text-center font-mono text-xs leading-relaxed text-white/40">
-        Flowing metallic gradient with optional shimmer highlight.
+        Flowing metallic gradient with optional shimmer highlight. Hover to tilt.
       </p>
     </section>
 
@@ -491,6 +536,59 @@ const copyCode = async () => {
               />
             </div>
           </div>
+
+          <!-- Tilt -->
+          <div class="space-y-6">
+            <h3 class="font-mono text-sm font-medium">Tilt</h3>
+            
+            <!-- Tilt Enabled -->
+            <div class="flex items-center justify-between">
+              <label class="font-mono text-xs text-white/60">Enable Tilt</label>
+              <button
+                :class="[
+                  'h-5 w-10 rounded-full transition-colors',
+                  config.tiltEnabled ? 'bg-white' : 'bg-white/20'
+                ]"
+                @click="config.tiltEnabled = !config.tiltEnabled"
+              >
+                <div
+                  :class="['h-4 w-4 rounded-full bg-dark-900 transition-transform', config.tiltEnabled ? 'translate-x-5' : 'translate-x-0.5']"
+                />
+              </button>
+            </div>
+            
+            <!-- Tilt Strength -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="font-mono text-xs text-white/60">Strength</label>
+                <span class="font-mono text-xs text-white/40">{{ config.tiltStrength }}°</span>
+              </div>
+              <input
+                v-model.number="config.tiltStrength"
+                type="range"
+                min="5"
+                max="30"
+                step="1"
+                class="w-full"
+              />
+            </div>
+            
+            <!-- Tilt Duration -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="font-mono text-xs text-white/60">Duration</label>
+                <span class="font-mono text-xs text-white/40">{{ config.tiltDuration }}s</span>
+              </div>
+              <input
+                v-model.number="config.tiltDuration"
+                type="range"
+                min="0.1"
+                max="1"
+                step="0.1"
+                class="w-full"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -561,6 +659,10 @@ const copyCode = async () => {
 </template>
 
 <style scoped>
+.perspective-1000 {
+  perspective: 1000px;
+}
+
 .liquid-metal-card {
   position: relative;
   isolation: isolate;

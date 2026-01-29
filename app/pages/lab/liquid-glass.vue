@@ -226,9 +226,11 @@ const copyCode = async () => {
         <!-- Lines -->
         <div class="absolute left-0 top-[30%] h-1 w-full bg-gradient-to-r from-transparent via-white/30 to-transparent" />
         <div class="absolute left-0 bottom-[40%] h-1 w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+        
+        <!-- Instructions (part of background so glass blurs them) -->
+        <div class="absolute inset-x-0 top-8 text-center font-mono text-[10px] uppercase tracking-widest text-white/40">Interactive Demo — Drag to move</div>
+        <div class="absolute inset-x-0 bottom-8 text-center font-mono text-xs leading-relaxed text-white/40 px-6">Drag to move the card. Hover to see 3D tilt and light reflection.</div>
       </div>
-
-      <span class="relative mb-8 font-mono text-[10px] uppercase tracking-widest text-white/40">Interactive Demo — Drag to move</span>
       
       <!-- Glass Card Wrapper (for dragging) -->
       <div
@@ -270,10 +272,6 @@ const copyCode = async () => {
           </div>
         </div>
       </div>
-      
-      <p class="relative mt-8 max-w-md text-center font-mono text-xs leading-relaxed text-white/40">
-        Drag to move the card. Hover to see 3D tilt and light reflection.
-      </p>
     </section>
 
     <!-- Controls Section -->
