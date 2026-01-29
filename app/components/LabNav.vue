@@ -64,24 +64,30 @@ const components = [
   },
   {
     id: '011',
-    slug: 'text-reveal',
-    title: 'Text Reveal',
-    status: 'soon'
+    slug: 'radial-menu',
+    title: 'Radial Menu',
+    status: 'ready'
   },
   {
     id: '012',
+    slug: 'pie-menu',
+    title: 'Pie Menu',
+    status: 'ready'
+  },
+  {
+    id: '013',
     slug: 'morphing-shapes',
     title: 'Morphing Shapes',
     status: 'soon'
   },
   {
-    id: '013',
+    id: '014',
     slug: 'scroll-velocity',
     title: 'Scroll Velocity',
     status: 'soon'
   },
   {
-    id: '014',
+    id: '015',
     slug: '3d-card',
     title: '3D Card Tilt',
     status: 'soon'
