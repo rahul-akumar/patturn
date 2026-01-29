@@ -46,24 +46,30 @@ const components = [
   },
   {
     id: '008',
+    slug: 'origami-card',
+    title: 'Origami Card',
+    status: 'ready'
+  },
+  {
+    id: '009',
     slug: 'text-reveal',
     title: 'Text Reveal',
     status: 'soon'
   },
   {
-    id: '009',
+    id: '010',
     slug: 'morphing-shapes',
     title: 'Morphing Shapes',
     status: 'soon'
   },
   {
-    id: '010',
+    id: '011',
     slug: 'scroll-velocity',
     title: 'Scroll Velocity',
     status: 'soon'
   },
   {
-    id: '011',
+    id: '012',
     slug: '3d-card',
     title: '3D Card Tilt',
     status: 'soon'
