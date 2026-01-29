@@ -154,8 +154,9 @@ const setLabRef = (el: any, index: number) => {
           © 2026 Patturn. Experimental Design Lab.
         </div>
         <div class="flex items-center gap-8">
-          <a href="#" class="font-mono text-xs text-white/40 transition-colors hover:text-white">GitHub</a>
-          <a href="#" class="font-mono text-xs text-white/40 transition-colors hover:text-white">Twitter</a>
+          <a href="https://github.com/rahul-akumar" target="_blank" rel="noopener" class="font-mono text-xs text-white/40 transition-colors hover:text-white">GitHub</a>
+          <a href="https://x.com/rahul_akumar" target="_blank" rel="noopener" class="font-mono text-xs text-white/40 transition-colors hover:text-white">Twitter</a>
+          <a href="https://www.linkedin.com/in/rahul-akumar/" target="_blank" rel="noopener" class="font-mono text-xs text-white/40 transition-colors hover:text-white">LinkedIn</a>
         </div>
       </div>
     </footer>

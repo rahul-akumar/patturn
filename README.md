@@ -1,75 +1,70 @@
-# Nuxt Minimal Starter
+# Patturn
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+An experimental playground for next-gen interfaces, interactions, and motion design.
 
-## Setup
+## Lab Experiments
 
-Make sure to install dependencies:
+| Experiment | Description | Status |
+|------------|-------------|--------|
+| Magnetic Button | Buttons that follow cursor with magnetic attraction | Ready |
+| Fluid Cursor | Smooth, blob-like cursor that morphs on hover | Ready |
+| Flip Card | 3D card flip interactions | Ready |
+| Liquid Glass | Glassmorphism with liquid distortion effects | Ready |
+| Liquid Metal | Metallic fluid simulations | Ready |
+| Explosive Button | Particle explosion on click | Ready |
+
+## Tech Stack
+
+- **Framework:** [Nuxt 4](https://nuxt.com/) + Vue 3
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Animation:** [GSAP](https://greensock.com/gsap/)
+- **3D:** [TresJS](https://tresjs.org/) (Three.js for Vue)
+- **Icons:** [Lucide](https://lucide.dev/)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ or Bun
+
+### Installation
 
 ```bash
-# npm
-npm install
+# Clone the repo
+git clone https://github.com/rahul-akumar/patturn.git
+cd patturn
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
+# Install dependencies
 bun install
-```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
+# Start dev server
 bun run dev
 ```
 
-## Production
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Build the application for production:
+## Scripts
 
-```bash
-# npm
-npm run build
+| Command | Description |
+|---------|-------------|
+| `bun run dev` | Start development server |
+| `bun run build` | Build for production |
+| `bun run preview` | Preview production build |
+| `bun run generate` | Generate static site |
 
-# pnpm
-pnpm build
+## Project Structure
 
-# yarn
-yarn build
-
-# bun
-bun run build
+```
+app/
+├── components/     # Reusable Vue components
+├── layouts/        # Page layouts (default, lab)
+├── pages/          # Route pages
+│   ├── index.vue   # Home page
+│   └── lab/        # Experiment pages
+└── assets/
+    └── css/        # Global styles
 ```
 
-Locally preview production build:
+## License
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+MIT
