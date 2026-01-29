@@ -520,11 +520,11 @@ const copyCode = async () => {
       </div>
     </section>
 
-    <!-- Generated Code Section -->
+    <!-- Code Section -->
     <section class="px-8 py-8">
       <div class="mx-auto max-w-4xl">
         <div class="flex items-center justify-between">
-          <span class="font-mono text-[10px] uppercase tracking-widest text-white/40">Generated Code</span>
+          <span class="font-mono text-[10px] uppercase tracking-widest text-white/40">Code</span>
           <button
             class="flex items-center gap-2 font-mono text-xs text-white/40 transition-colors hover:text-white"
             @click="copyCode"

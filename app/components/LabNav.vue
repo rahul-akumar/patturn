@@ -40,24 +40,30 @@ const components = [
   },
   {
     id: '007',
+    slug: 'intelligent-input',
+    title: 'Intelligent Input',
+    status: 'ready'
+  },
+  {
+    id: '008',
     slug: 'text-reveal',
     title: 'Text Reveal',
     status: 'soon'
   },
   {
-    id: '008',
+    id: '009',
     slug: 'morphing-shapes',
     title: 'Morphing Shapes',
     status: 'soon'
   },
   {
-    id: '009',
+    id: '010',
     slug: 'scroll-velocity',
     title: 'Scroll Velocity',
     status: 'soon'
   },
   {
-    id: '010',
+    id: '011',
     slug: '3d-card',
     title: '3D Card Tilt',
     status: 'soon'
