@@ -32,9 +32,5 @@ const isLab = computed(() => route.path.startsWith('/lab'))
         </NuxtLink>
       </nav>
     </div>
-    <div class="flex items-center gap-3">
-      <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-      <span class="font-mono text-[10px] text-white/40">Live</span>
-    </div>
   </header>
 </template>

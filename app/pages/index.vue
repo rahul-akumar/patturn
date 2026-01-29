@@ -45,12 +45,12 @@ onMounted(() => {
   }, '-=0.3')
 })
 
-const setTitleRef = (el: any, index: number) => {
-  if (el) titleChars.value[index] = el
+const setTitleRef = (el: Element | ComponentPublicInstance | null, index: number) => {
+  if (el) titleChars.value[index] = el as HTMLElement
 }
 
-const setLabRef = (el: any, index: number) => {
-  if (el) labItems.value[index] = el
+const setLabRef = (el: Element | ComponentPublicInstance | null, index: number) => {
+  if (el) labItems.value[index] = el as HTMLElement
 }
 </script>
 
@@ -76,7 +76,7 @@ const setLabRef = (el: any, index: number) => {
 
         <!-- Subtitle -->
         <p class="hero-subtitle max-w-md font-mono text-sm leading-relaxed text-white/50">
-          An experimental playground for next-gen interfaces,<br />
+          An experimental playground for next-gen interfaces,<br>
           interactions, and motion design.
         </p>
 
