@@ -28,24 +28,30 @@ const components = [
   },
   {
     id: '005',
+    slug: 'flip-card',
+    title: 'Flip Card',
+    status: 'ready'
+  },
+  {
+    id: '006',
     slug: 'text-reveal',
     title: 'Text Reveal',
     status: 'soon'
   },
   {
-    id: '006',
+    id: '007',
     slug: 'morphing-shapes',
     title: 'Morphing Shapes',
     status: 'soon'
   },
   {
-    id: '007',
+    id: '008',
     slug: 'scroll-velocity',
     title: 'Scroll Velocity',
     status: 'soon'
   },
   {
-    id: '008',
+    id: '009',
     slug: '3d-card',
     title: '3D Card Tilt',
     status: 'soon'
