@@ -14,7 +14,7 @@ definePageMeta({
       </div>
       <h1 class="text-3xl font-bold tracking-tight">Component Lab</h1>
       <p class="mt-4 font-mono text-sm leading-relaxed text-white/50">
-        Select a component from the sidebar to explore.<br />
+        Select a component from the sidebar to explore.<br >
         Each experiment showcases a unique interaction pattern.
       </p>
       <div class="mt-8 flex items-center justify-center gap-6">

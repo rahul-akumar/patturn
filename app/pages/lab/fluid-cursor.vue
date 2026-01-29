@@ -220,7 +220,7 @@ const copyCode = async () => {
                 max="100"
                 step="2"
                 class="w-full accent-white"
-              />
+              >
             </div>
 
             <!-- Duration -->
@@ -236,7 +236,7 @@ const copyCode = async () => {
                 max="1.5"
                 step="0.05"
                 class="w-full accent-white"
-              />
+              >
             </div>
 
             <!-- Easing -->
@@ -265,7 +265,7 @@ const copyCode = async () => {
                 max="4"
                 step="1"
                 class="w-full accent-white"
-              />
+              >
             </div>
 
             <!-- Opacity -->
@@ -281,7 +281,7 @@ const copyCode = async () => {
                 max="1"
                 step="0.1"
                 class="w-full accent-white"
-              />
+              >
             </div>
 
             <!-- Mix Blend -->
@@ -321,7 +321,7 @@ const copyCode = async () => {
                 max="20"
                 step="1"
                 class="w-full accent-white"
-              />
+              >
             </div>
 
             <!-- Duration -->
@@ -337,7 +337,7 @@ const copyCode = async () => {
                 max="0.5"
                 step="0.025"
                 class="w-full accent-white"
-              />
+              >
             </div>
 
             <!-- Opacity -->
@@ -353,7 +353,7 @@ const copyCode = async () => {
                 max="1"
                 step="0.1"
                 class="w-full accent-white"
-              />
+              >
             </div>
           </div>
         </div>

@@ -115,6 +115,7 @@ onMounted(() => {
 })
 
 const generatedCode = computed(() => {
+  const scriptClose = '<' + '/script>'
   return `<script setup>
 import { ref } from 'vue'
 import gsap from 'gsap'
@@ -154,7 +155,7 @@ const onMouseLeave = () => {
 const onMouseEnter = () => {
   bounds = buttonRef.value.getBoundingClientRect()
 }
-<\/script>`
+${scriptClose}`
 })
 
 const copyCode = async () => {
@@ -203,7 +204,7 @@ const copyCode = async () => {
       </button>
       
       <p class="mt-12 max-w-md text-center font-mono text-xs leading-relaxed text-white/40">
-        The button follows your cursor with configurable physics.<br />
+        The button follows your cursor with configurable physics.<br >
         Adjust the controls below to experiment.
       </p>
     </section>
@@ -240,7 +241,7 @@ const copyCode = async () => {
                 max="1"
                 step="0.05"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Text Parallax -->
@@ -256,7 +257,7 @@ const copyCode = async () => {
                 max="1"
                 step="0.1"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Move Duration -->
@@ -272,7 +273,7 @@ const copyCode = async () => {
                 max="1"
                 step="0.05"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Move Easing -->
@@ -306,7 +307,7 @@ const copyCode = async () => {
                 max="1.5"
                 step="0.05"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Return Easing -->
@@ -340,6 +341,7 @@ const copyCode = async () => {
                 />
               </button>
             </div>
+
           </div>
         </div>
       </div>

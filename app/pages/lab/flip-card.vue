@@ -71,7 +71,7 @@ const containerStyle = computed(() => ({
   perspective: `${config.value.perspective}px`
 }))
 
-const cardStyle = computed(() => {
+const _cardStyle = computed(() => {
   const rotation = config.value.flipDirection === 'horizontal' 
     ? `rotateY(${isFlipped.value ? 180 : 0}deg)`
     : `rotateX(${isFlipped.value ? 180 : 0}deg)`
@@ -304,7 +304,7 @@ const copyCode = async () => {
                 max="1.5"
                 step="0.1"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Perspective -->
@@ -320,7 +320,7 @@ const copyCode = async () => {
                 max="2000"
                 step="100"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Easing -->
@@ -413,7 +413,7 @@ const copyCode = async () => {
                 max="10"
                 step="0.5"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Manual Flip Control -->

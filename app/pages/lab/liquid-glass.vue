@@ -306,7 +306,7 @@ const copyCode = async () => {
                 max="50"
                 step="1"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Background Opacity -->
@@ -322,7 +322,7 @@ const copyCode = async () => {
                 max="0.5"
                 step="0.05"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Border Opacity -->
@@ -338,7 +338,7 @@ const copyCode = async () => {
                 max="0.6"
                 step="0.05"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Saturation -->
@@ -354,7 +354,7 @@ const copyCode = async () => {
                 max="3"
                 step="0.1"
                 class="w-full"
-              />
+              >
             </div>
           </div>
 
@@ -375,7 +375,7 @@ const copyCode = async () => {
                 max="300"
                 step="10"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Reflection Opacity -->
@@ -391,7 +391,7 @@ const copyCode = async () => {
                 max="0.8"
                 step="0.05"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Reflection Blur -->
@@ -407,7 +407,7 @@ const copyCode = async () => {
                 max="80"
                 step="5"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Tilt Strength -->
@@ -423,7 +423,7 @@ const copyCode = async () => {
                 max="30"
                 step="1"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Tilt Duration -->
@@ -439,7 +439,7 @@ const copyCode = async () => {
                 max="1"
                 step="0.05"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Drag Enabled -->
@@ -474,7 +474,7 @@ const copyCode = async () => {
                 max="0.5"
                 step="0.05"
                 class="w-full"
-              />
+              >
             </div>
           </div>
         </div>

@@ -371,7 +371,7 @@ const copyCode = async () => {
                 max="6"
                 step="1"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Border Radius -->
@@ -387,7 +387,7 @@ const copyCode = async () => {
                 max="32"
                 step="2"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Gradient Colors -->
@@ -399,7 +399,7 @@ const copyCode = async () => {
                     v-model="config.color1"
                     type="color"
                     class="h-8 w-full cursor-pointer rounded border border-white/20 bg-transparent"
-                  />
+                  >
                   <span class="font-mono text-[9px] text-white/30">Dark</span>
                 </div>
                 <div class="flex flex-col items-center gap-1">
@@ -407,7 +407,7 @@ const copyCode = async () => {
                     v-model="config.color2"
                     type="color"
                     class="h-8 w-full cursor-pointer rounded border border-white/20 bg-transparent"
-                  />
+                  >
                   <span class="font-mono text-[9px] text-white/30">Bright</span>
                 </div>
                 <div class="flex flex-col items-center gap-1">
@@ -415,7 +415,7 @@ const copyCode = async () => {
                     v-model="config.color3"
                     type="color"
                     class="h-8 w-full cursor-pointer rounded border border-white/20 bg-transparent"
-                  />
+                  >
                   <span class="font-mono text-[9px] text-white/30">Shadow</span>
                 </div>
                 <div class="flex flex-col items-center gap-1">
@@ -423,7 +423,7 @@ const copyCode = async () => {
                     v-model="config.color4"
                     type="color"
                     class="h-8 w-full cursor-pointer rounded border border-white/20 bg-transparent"
-                  />
+                  >
                   <span class="font-mono text-[9px] text-white/30">Mid</span>
                 </div>
               </div>
@@ -447,7 +447,7 @@ const copyCode = async () => {
                 max="20"
                 step="1"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Wave Intensity -->
@@ -463,7 +463,7 @@ const copyCode = async () => {
                 max="40"
                 step="5"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Shimmer Enabled -->
@@ -498,7 +498,7 @@ const copyCode = async () => {
                 max="10"
                 step="0.5"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Glow Enabled -->
@@ -533,7 +533,7 @@ const copyCode = async () => {
                 max="1"
                 step="0.1"
                 class="w-full"
-              />
+              >
             </div>
           </div>
 
@@ -570,7 +570,7 @@ const copyCode = async () => {
                 max="30"
                 step="1"
                 class="w-full"
-              />
+              >
             </div>
             
             <!-- Tilt Duration -->
@@ -586,7 +586,7 @@ const copyCode = async () => {
                 max="1"
                 step="0.1"
                 class="w-full"
-              />
+              >
             </div>
           </div>
         </div>

@@ -341,7 +341,7 @@ const copyCode = async () => {
                 max="50"
                 step="1"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Particle Size -->
@@ -357,7 +357,7 @@ const copyCode = async () => {
                 max="20"
                 step="1"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Explosion Radius -->
@@ -373,7 +373,7 @@ const copyCode = async () => {
                 max="250"
                 step="10"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Spread -->
@@ -389,7 +389,7 @@ const copyCode = async () => {
                 max="360"
                 step="15"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Particle Shape -->
@@ -431,7 +431,7 @@ const copyCode = async () => {
                 max="2"
                 step="0.1"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Gravity -->
@@ -447,7 +447,7 @@ const copyCode = async () => {
                 max="2"
                 step="0.1"
                 class="w-full"
-              />
+              >
             </div>
 
             <!-- Color Scheme -->
