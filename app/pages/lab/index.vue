@@ -7,7 +7,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col items-center justify-center px-12">
+  <div class="flex h-full flex-col items-center justify-center px-12">
     <div class="max-w-lg text-center">
       <div class="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full border border-white/10">
         <Sparkles class="h-6 w-6 text-white/40" />

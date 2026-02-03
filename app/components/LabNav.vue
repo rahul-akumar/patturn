@@ -76,18 +76,24 @@ const components = [
   },
   {
     id: '013',
+    slug: 'ambient-progress',
+    title: 'Ambient Progress',
+    status: 'ready'
+  },
+  {
+    id: '014',
     slug: 'morphing-shapes',
     title: 'Morphing Shapes',
     status: 'soon'
   },
   {
-    id: '014',
+    id: '015',
     slug: 'scroll-velocity',
     title: 'Scroll Velocity',
     status: 'soon'
   },
   {
-    id: '015',
+    id: '016',
     slug: '3d-card',
     title: '3D Card Tilt',
     status: 'soon'
@@ -100,7 +106,7 @@ const isActive = (slug: string) => {
 </script>
 
 <template>
-  <aside class="fixed left-0 top-[61px] z-40 flex h-[calc(100vh-61px)] w-64 flex-col border-r border-white/10 bg-dark-900">
+  <aside class="flex h-full w-64 shrink-0 flex-col border-r border-white/10 bg-dark-900">
     <!-- Title -->
     <div class="flex h-[53px] items-center border-b border-white/10 px-5">
       <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">Components</span>

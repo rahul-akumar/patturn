@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { Star } from 'lucide-vue-next'
+
 const route = useRoute()
 
 const isLab = computed(() => route.path.startsWith('/lab'))
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 z-50 flex w-full items-center justify-between border-b border-white/10 bg-dark-900/80 px-6 py-5 backdrop-blur-md md:px-12">
+  <header class="sticky top-0 z-50 flex w-full shrink-0 items-center justify-between border-b border-white/10 bg-dark-900 px-6 py-5 md:px-12">
     <div class="flex items-center gap-8">
       <NuxtLink to="/" class="font-mono text-xs tracking-[0.3em] uppercase transition-colors hover:text-white/70">
         Patturn
@@ -32,5 +34,15 @@ const isLab = computed(() => route.path.startsWith('/lab'))
         </NuxtLink>
       </nav>
     </div>
+
+    <a
+      href="https://github.com/your-username/patturn"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 font-mono text-xs transition-all hover:border-white/40 hover:bg-white/5"
+    >
+      <Star :size="14" />
+      <span>Star on GitHub</span>
+    </a>
   </header>
 </template>

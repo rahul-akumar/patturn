@@ -1,9 +1,9 @@
 <template>
-  <div class="min-h-screen pt-[61px]">
+  <div class="flex h-screen flex-col overflow-hidden">
     <SiteHeader />
-    <div class="flex">
+    <div class="flex flex-1 overflow-hidden">
       <LabNav />
-      <main class="ml-64 flex-1">
+      <main class="flex-1 overflow-y-auto">
         <slot />
       </main>
     </div>
