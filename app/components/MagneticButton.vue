@@ -20,6 +20,7 @@ interface Props {
   returnDuration?: number
   returnEase?: string
   showFill?: boolean
+  showBorder?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -34,7 +35,8 @@ const props = withDefaults(defineProps<Props>(), {
   moveEase: 'power3.out',
   returnDuration: 0.7,
   returnEase: 'elastic.out(1, 0.3)',
-  showFill: true
+  showFill: true,
+  showBorder: true
 })
 
 // Size classes mapping
@@ -81,10 +83,11 @@ const colorClasses: Record<ButtonColor, { border: string; fill: string; text: st
 }
 
 const buttonClasses = computed(() => [
-  'group relative overflow-hidden border bg-transparent transition-colors hover:border-white/40',
+  'group relative overflow-hidden bg-transparent transition-colors',
+  props.showBorder ? 'border hover:border-white/40' : 'border-none hover:border-none',
   sizeClasses[props.size],
   cornerClasses[props.corners],
-  colorClasses[props.color].border
+  props.showBorder ? colorClasses[props.color].border : ''
 ])
 
 const fillColor = computed(() => colorClasses[props.color].fill)
@@ -152,32 +155,36 @@ onMounted(() => {
 </script>
 
 <template>
-  <button ref="buttonRef" :class="buttonClasses" @mouseenter="onMouseEnter" @mousemove="onMouseMove"
+  <button
+ref="buttonRef" :class="buttonClasses" @mouseenter="onMouseEnter" @mousemove="onMouseMove"
     @mouseleave="onMouseLeave">
     <!-- Fill background on hover -->
-    <span v-if="showFill" :class="[
+    <span
+v-if="showFill" :class="[
       'absolute inset-0 -z-0 origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100',
       fillColor
     ]" />
 
     <!-- Main text content -->
-    <span ref="textRef" :class="[
+    <span
+ref="textRef" :class="[
       'relative z-10 flex items-center gap-2 font-mono uppercase tracking-[0.2em]',
       textColor
     ]">
-      <component v-if="icon && iconPosition === 'left'" :is="icon" :size="iconSize" />
+      <component :is="icon" v-if="icon && iconPosition === 'left'" :size="iconSize" />
       <slot />
-      <component v-if="icon && iconPosition === 'right'" :is="icon" :size="iconSize" />
+      <component :is="icon" v-if="icon && iconPosition === 'right'" :size="iconSize" />
     </span>
 
     <!-- Hover text content (appears on fill) -->
-    <span v-if="showFill" :class="[
+    <span
+v-if="showFill" :class="[
       'absolute inset-0 z-10 flex items-center justify-center gap-2 font-mono uppercase tracking-[0.2em] opacity-0 transition-opacity duration-300 group-hover:opacity-100',
       hoverTextColor
     ]">
-      <component v-if="icon && iconPosition === 'left'" :is="icon" :size="iconSize" />
+      <component :is="icon" v-if="icon && iconPosition === 'left'" :size="iconSize" />
       <slot />
-      <component v-if="icon && iconPosition === 'right'" :is="icon" :size="iconSize" />
+      <component :is="icon" v-if="icon && iconPosition === 'right'" :size="iconSize" />
     </span>
   </button>
 </template>

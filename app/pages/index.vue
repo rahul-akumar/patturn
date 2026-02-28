@@ -63,7 +63,8 @@ const setLabRef = (el: Element | ComponentPublicInstance | null, index: number) 
         <h1
           class="mb-4 overflow-hidden font-sans text-[12vw] font-bold leading-[0.85] tracking-[-0.04em] md:text-[10vw]">
           <span class="inline-block perspective-1000">
-            <span v-for="(char, i) in 'PATTURN'.split('')" :key="i" :ref="(el) => setTitleRef(el, i)"
+            <span
+v-for="(char, i) in 'PATTURN'.split('')" :key="i" :ref="(el) => setTitleRef(el, i)"
               class="title-char inline-block">{{ char }}</span>
           </span>
         </h1>
@@ -115,7 +116,8 @@ const setLabRef = (el: Element | ComponentPublicInstance | null, index: number) 
 
       <!-- Experiment Grid -->
       <div class="grid gap-1">
-        <div v-for="(exp, index) in experiments" :key="exp.id" :ref="(el) => setLabRef(el, index)"
+        <div
+v-for="(exp, index) in experiments" :key="exp.id" :ref="(el) => setLabRef(el, index)"
           class="lab-item group relative flex cursor-pointer items-center justify-between border-t border-white/10 py-6 transition-colors hover:bg-white/[0.02]">
           <div class="flex items-center gap-8">
             <span class="font-mono text-xs text-white/30">{{ exp.id }}</span>
@@ -124,7 +126,8 @@ const setLabRef = (el: Element | ComponentPublicInstance | null, index: number) 
             </span>
           </div>
           <div class="flex items-center gap-6">
-            <span :class="[
+            <span
+:class="[
               'font-mono text-[10px] uppercase tracking-widest',
               exp.status === 'active' ? 'text-green-500' : exp.status === 'ready' ? 'text-white/60' : 'text-white/30'
             ]">
@@ -144,11 +147,14 @@ const setLabRef = (el: Element | ComponentPublicInstance | null, index: number) 
           © 2026 Patturn. Experimental Design Lab.
         </div>
         <div class="flex items-center gap-8">
-          <a href="https://github.com/rahul-akumar" target="_blank" rel="noopener"
+          <a
+href="https://github.com/rahul-akumar" target="_blank" rel="noopener"
             class="font-mono text-xs text-white/40 transition-colors hover:text-white">GitHub</a>
-          <a href="https://x.com/rahul_akumar" target="_blank" rel="noopener"
+          <a
+href="https://x.com/rahul_akumar" target="_blank" rel="noopener"
             class="font-mono text-xs text-white/40 transition-colors hover:text-white">Twitter</a>
-          <a href="https://www.linkedin.com/in/rahul-akumar/" target="_blank" rel="noopener"
+          <a
+href="https://www.linkedin.com/in/rahul-akumar/" target="_blank" rel="noopener"
             class="font-mono text-xs text-white/40 transition-colors hover:text-white">LinkedIn</a>
         </div>
       </div>

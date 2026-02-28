@@ -716,12 +716,14 @@ const copyCode = async () => {
     </header>
 
     <!-- Demo Section -->
-    <section ref="demoRef"
+    <section
+ref="demoRef"
       class="relative flex min-h-[50vh] flex-col items-center justify-center border-b border-white/10 overflow-hidden">
       <!-- Sharp Background Pattern -->
       <div class="absolute inset-0 overflow-hidden">
         <!-- Grid pattern -->
-        <div class="absolute inset-0 opacity-20"
+        <div
+class="absolute inset-0 opacity-20"
           style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 40px 40px;" />
 
         <!-- Sharp colored shapes -->
@@ -750,13 +752,16 @@ const copyCode = async () => {
       </div>
 
       <!-- Glass Card Wrapper (for dragging) -->
-      <div ref="wrapperRef" class="perspective-1000"
+      <div
+ref="wrapperRef" class="perspective-1000"
         :class="{ 'cursor-grabbing': isDragging, 'cursor-grab': !isDragging && config.dragEnabled }">
-        <div ref="glassRef"
+        <div
+ref="glassRef"
           class="relative h-72 w-80 rounded-3xl p-8 shadow-2xl transform-gpu select-none overflow-hidden"
           :style="glassStyle" @mousedown="onMouseDown" @mousemove="onMouseMove" @mouseleave="onMouseLeave">
           <!-- Reflection -->
-          <div ref="reflectionRef"
+          <div
+ref="reflectionRef"
             class="pointer-events-none absolute rounded-full bg-gradient-radial from-white to-transparent"
             :style="reflectionStyle" />
 
@@ -765,39 +770,48 @@ const copyCode = async () => {
             class="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-white/20 via-transparent to-transparent" />
 
           <!-- Fractal: Striation overlay -->
-          <div v-if="activePreset === 'Fractal'"
+          <div
+v-if="activePreset === 'Fractal'"
             class="striation-layer pointer-events-none absolute inset-0 rounded-3xl" :style="striationStyle" />
 
           <!-- Tinted: Color overlay -->
-          <div v-if="activePreset === 'Tinted'" class="tint-layer pointer-events-none absolute inset-0 rounded-3xl"
+          <div
+v-if="activePreset === 'Tinted'" class="tint-layer pointer-events-none absolute inset-0 rounded-3xl"
             :style="tintStyle" />
 
           <!-- Crystalline: Iridescence overlay -->
-          <div v-if="activePreset === 'Crystalline'"
+          <div
+v-if="activePreset === 'Crystalline'"
             class="iridescence-layer pointer-events-none absolute inset-0 rounded-3xl" :style="iridescenceStyle" />
 
           <!-- Crystalline: Noise texture overlay -->
-          <div v-if="activePreset === 'Crystalline'"
+          <div
+v-if="activePreset === 'Crystalline'"
             class="noise-layer pointer-events-none absolute inset-0 rounded-3xl" :style="noiseStyle" />
 
           <!-- Holographic: Conic gradient overlay -->
-          <div v-if="activePreset === 'Holographic'" ref="holoRef"
+          <div
+v-if="activePreset === 'Holographic'" ref="holoRef"
             class="holo-layer pointer-events-none absolute rounded-full" :style="holoStyle" />
 
           <!-- Gradient: Opacity fade overlay -->
-          <div v-if="activePreset === 'Gradient'"
+          <div
+v-if="activePreset === 'Gradient'"
             class="gradient-overlay pointer-events-none absolute inset-0 rounded-3xl" :style="gradientOverlayStyle" />
 
           <!-- Wet: Droplet layer -->
-          <div v-if="activePreset === 'Wet'" class="droplet-layer pointer-events-none absolute inset-0 rounded-3xl"
+          <div
+v-if="activePreset === 'Wet'" class="droplet-layer pointer-events-none absolute inset-0 rounded-3xl"
             :style="{ background: dropletBackground }" />
 
           <!-- Wet: Streak layer -->
-          <div v-if="activePreset === 'Wet'" class="streak-layer pointer-events-none absolute inset-0 rounded-3xl"
+          <div
+v-if="activePreset === 'Wet'" class="streak-layer pointer-events-none absolute inset-0 rounded-3xl"
             :style="streakStyle" />
 
           <!-- Apple: Specular highlight -->
-          <div v-if="activePreset === 'Apple'" class="pointer-events-none absolute inset-0 rounded-3xl"
+          <div
+v-if="activePreset === 'Apple'" class="pointer-events-none absolute inset-0 rounded-3xl"
             :style="appleSpecularStyle" />
 
           <!-- Content -->
@@ -823,7 +837,8 @@ const copyCode = async () => {
       <div class="mx-auto max-w-4xl">
         <div class="mb-6 flex items-center justify-between">
           <span class="font-mono text-[10px] uppercase tracking-widest text-white/40">Controls</span>
-          <button class="flex items-center gap-2 font-mono text-xs text-white/40 transition-colors hover:text-white"
+          <button
+class="flex items-center gap-2 font-mono text-xs text-white/40 transition-colors hover:text-white"
             @click="resetConfig">
             <RotateCcw class="h-3 w-3" />
             Reset
@@ -834,13 +849,15 @@ const copyCode = async () => {
         <div class="mb-8 space-y-3">
           <label class="font-mono text-xs text-white/60">Glass Preset</label>
           <div class="flex flex-wrap gap-2">
-            <button v-for="preset in glassPresets" :key="preset.name" :class="[
+            <button
+v-for="preset in glassPresets" :key="preset.name" :class="[
               'group flex items-center gap-2 rounded-lg border px-3 py-2 font-mono text-xs transition-all duration-300',
               activePreset === preset.name
                 ? 'border-white/30 bg-white/10 text-white shadow-lg shadow-white/5'
                 : 'border-white/10 bg-white/[0.02] text-white/50 hover:border-white/20 hover:bg-white/[0.05] hover:text-white/70'
             ]" @click="applyPreset(preset.name)">
-              <component :is="presetIcons[preset.icon]" class="h-3.5 w-3.5 transition-colors"
+              <component
+:is="presetIcons[preset.icon]" class="h-3.5 w-3.5 transition-colors"
                 :class="activePreset === preset.name ? 'text-white' : 'text-white/40 group-hover:text-white/60'" />
               <span>{{ preset.name }}</span>
             </button>
@@ -917,7 +934,8 @@ const copyCode = async () => {
                     <label class="font-mono text-xs text-white/60">Rib Opacity</label>
                     <span class="font-mono text-xs text-white/40">{{ config.striationOpacity }}</span>
                   </div>
-                  <input v-model.number="config.striationOpacity" type="range" min="0.05" max="0.6" step="0.05"
+                  <input
+v-model.number="config.striationOpacity" type="range" min="0.05" max="0.6" step="0.05"
                     class="w-full">
                 </div>
               </div>
@@ -931,10 +949,12 @@ const copyCode = async () => {
                 <div class="space-y-2">
                   <label class="font-mono text-xs text-white/60">Tint Color</label>
                   <div class="flex items-center gap-3">
-                    <input v-model="config.tintColor" type="color"
+                    <input
+v-model="config.tintColor" type="color"
                       class="h-8 w-12 cursor-pointer rounded border border-white/20 bg-transparent">
                     <div class="flex flex-wrap gap-1.5">
-                      <button v-for="tc in tintColors" :key="tc.name" class="h-6 w-6 rounded-full border transition-all"
+                      <button
+v-for="tc in tintColors" :key="tc.name" class="h-6 w-6 rounded-full border transition-all"
                         :class="config.tintColor === tc.color ? 'border-white scale-110' : 'border-white/20 hover:border-white/40'"
                         :style="{ backgroundColor: tc.color }" :title="tc.name" @click="config.tintColor = tc.color" />
                     </div>
@@ -946,7 +966,8 @@ const copyCode = async () => {
                     <label class="font-mono text-xs text-white/60">Tint Intensity</label>
                     <span class="font-mono text-xs text-white/40">{{ config.tintOpacity }}</span>
                   </div>
-                  <input v-model.number="config.tintOpacity" type="range" min="0.05" max="0.4" step="0.05"
+                  <input
+v-model.number="config.tintOpacity" type="range" min="0.05" max="0.4" step="0.05"
                     class="w-full">
                 </div>
               </div>
@@ -962,7 +983,8 @@ const copyCode = async () => {
                     <label class="font-mono text-xs text-white/60">Iridescence</label>
                     <span class="font-mono text-xs text-white/40">{{ config.iridescenceOpacity }}</span>
                   </div>
-                  <input v-model.number="config.iridescenceOpacity" type="range" min="0.05" max="0.4" step="0.05"
+                  <input
+v-model.number="config.iridescenceOpacity" type="range" min="0.05" max="0.4" step="0.05"
                     class="w-full">
                 </div>
 
@@ -986,7 +1008,8 @@ const copyCode = async () => {
                     <label class="font-mono text-xs text-white/60">Intensity</label>
                     <span class="font-mono text-xs text-white/40">{{ config.holoIntensity }}</span>
                   </div>
-                  <input v-model.number="config.holoIntensity" type="range" min="0.05" max="0.5" step="0.05"
+                  <input
+v-model.number="config.holoIntensity" type="range" min="0.05" max="0.5" step="0.05"
                     class="w-full">
                 </div>
 
@@ -1008,7 +1031,8 @@ const copyCode = async () => {
                 <div class="space-y-2">
                   <label class="font-mono text-xs text-white/60">Direction</label>
                   <div class="flex flex-wrap gap-1.5">
-                    <button v-for="dir in gradientDirections" :key="dir.value"
+                    <button
+v-for="dir in gradientDirections" :key="dir.value"
                       class="flex h-8 w-8 items-center justify-center rounded border font-mono text-sm transition-all"
                       :class="config.gradientDirection === dir.value ? 'border-white bg-white/10 text-white' : 'border-white/20 text-white/40 hover:border-white/40'"
                       :title="dir.value" @click="config.gradientDirection = dir.value">
@@ -1022,7 +1046,8 @@ const copyCode = async () => {
                     <label class="font-mono text-xs text-white/60">Strength</label>
                     <span class="font-mono text-xs text-white/40">{{ config.gradientStrength }}</span>
                   </div>
-                  <input v-model.number="config.gradientStrength" type="range" min="0.1" max="0.6" step="0.05"
+                  <input
+v-model.number="config.gradientStrength" type="range" min="0.1" max="0.6" step="0.05"
                     class="w-full">
                 </div>
               </div>
@@ -1036,7 +1061,8 @@ const copyCode = async () => {
                 <div class="space-y-2">
                   <label class="font-mono text-xs text-white/60">Droplet Density</label>
                   <div class="flex gap-2">
-                    <button v-for="density in ['sparse', 'medium', 'heavy']" :key="density"
+                    <button
+v-for="density in ['sparse', 'medium', 'heavy']" :key="density"
                       class="rounded border px-3 py-1.5 font-mono text-xs transition-all"
                       :class="config.dropletDensity === density ? 'border-white bg-white/10 text-white' : 'border-white/20 text-white/40 hover:border-white/40'"
                       @click="config.dropletDensity = density">
@@ -1050,7 +1076,8 @@ const copyCode = async () => {
                     <label class="font-mono text-xs text-white/60">Streak Opacity</label>
                     <span class="font-mono text-xs text-white/40">{{ config.streakOpacity }}</span>
                   </div>
-                  <input v-model.number="config.streakOpacity" type="range" min="0.05" max="0.3" step="0.01"
+                  <input
+v-model.number="config.streakOpacity" type="range" min="0.05" max="0.3" step="0.01"
                     class="w-full">
                 </div>
               </div>
@@ -1066,7 +1093,8 @@ const copyCode = async () => {
                     <label class="font-mono text-xs text-white/60">Edge Refraction</label>
                     <span class="font-mono text-xs text-white/40">{{ config.refractionStrength }}</span>
                   </div>
-                  <input v-model.number="config.refractionStrength" type="range" min="0.1" max="1" step="0.05"
+                  <input
+v-model.number="config.refractionStrength" type="range" min="0.1" max="1" step="0.05"
                     class="w-full">
                 </div>
 
@@ -1100,7 +1128,8 @@ const copyCode = async () => {
                 <label class="font-mono text-xs text-white/60">Reflection Opacity</label>
                 <span class="font-mono text-xs text-white/40">{{ config.reflectionOpacity }}</span>
               </div>
-              <input v-model.number="config.reflectionOpacity" type="range" min="0.1" max="0.8" step="0.05"
+              <input
+v-model.number="config.reflectionOpacity" type="range" min="0.1" max="0.8" step="0.05"
                 class="w-full">
             </div>
 
@@ -1134,11 +1163,13 @@ const copyCode = async () => {
             <!-- Drag Enabled -->
             <div class="flex items-center justify-between pt-2">
               <label class="font-mono text-xs text-white/60">Drag Enabled</label>
-              <button :class="[
+              <button
+:class="[
                 'h-5 w-10 rounded-full transition-colors',
                 config.dragEnabled ? 'bg-white' : 'bg-white/20'
               ]" @click="config.dragEnabled = !config.dragEnabled">
-                <div :class="[
+                <div
+:class="[
                   'h-4 w-4 rounded-full bg-dark-900 transition-transform',
                   config.dragEnabled ? 'translate-x-5' : 'translate-x-0.5'
                 ]" />
@@ -1163,7 +1194,8 @@ const copyCode = async () => {
       <div class="mx-auto max-w-4xl">
         <div class="flex items-center justify-between">
           <span class="font-mono text-[10px] uppercase tracking-widest text-white/40">Code</span>
-          <button class="flex items-center gap-2 font-mono text-xs text-white/40 transition-colors hover:text-white"
+          <button
+class="flex items-center gap-2 font-mono text-xs text-white/40 transition-colors hover:text-white"
             @click="copyCode">
             <component :is="copied ? Check : Copy" class="h-3 w-3" />
             {{ copied ? 'Copied' : 'Copy' }}
