@@ -2115,6 +2115,293 @@ const select = (item: TocItem) => {
         { type: 'slider', key: 'topPadding', label: 'Top Padding', min: 8, max: 32, step: 4, default: 16, group: 'Layout' },
         { type: 'slider', key: 'scrollCooldownMs', label: 'Scroll Cooldown (ms)', min: 100, max: 800, step: 50, default: 400, group: 'Behavior' }
       ]
+    },
+    'blossom-color-picker': {
+      id: '015',
+      slug: 'blossom-color-picker',
+      title: 'Blossom Color Picker',
+      status: 'ready',
+      component: defineAsyncComponent(() => import('~/components/BlossomColorPicker.vue')),
+      sourceCode: `<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import gsap from 'gsap'
+
+interface Props {
+  modelValue?: string
+  petalCount?: number
+  petalRadius?: number
+  orbitRadius?: number
+  outerRingRadius?: number
+  outerRingWidth?: number
+  centerRadius?: number
+  bloomDuration?: number
+  bloomEase?: string
+  closeDuration?: number
+  closeEase?: string
+  staggerDelay?: number
+  showPreview?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: '#ff6b6b',
+  petalCount: 12,
+  petalRadius: 36,
+  orbitRadius: 52,
+  outerRingRadius: 100,
+  outerRingWidth: 14,
+  centerRadius: 22,
+  bloomDuration: 0.55,
+  bloomEase: 'back.out(1.6)',
+  closeDuration: 0.35,
+  closeEase: 'power2.in',
+  staggerDelay: 0.035,
+  showPreview: true
+})
+
+const emit = defineEmits<{
+  'update:modelValue': [color: string]
+  'change': [color: string]
+  'preview': [color: string | null]
+}>()
+
+const palette = computed(() => {
+  const colors: { hue: number; hex: string; label: string }[] = []
+  const count = props.petalCount
+  for (let i = 0; i < count; i++) {
+    const hue = Math.round((i / count) * 360)
+    colors.push({ hue, hex: hslToHex(hue, 80, 58), label: hueLabel(hue) })
+  }
+  return colors
+})
+
+function hslToHex(h: number, s: number, l: number): string {
+  s /= 100; l /= 100
+  const a = s * Math.min(l, 1 - l)
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
+    return Math.round(255 * color).toString(16).padStart(2, '0')
+  }
+  return \`#\${f(0)}\${f(8)}\${f(4)}\`
+}
+
+function hueLabel(hue: number): string {
+  if (hue < 15 || hue >= 345) return 'Red'
+  if (hue < 45) return 'Orange'
+  if (hue < 75) return 'Yellow'
+  if (hue < 150) return 'Green'
+  if (hue < 195) return 'Cyan'
+  if (hue < 255) return 'Blue'
+  if (hue < 285) return 'Indigo'
+  if (hue < 315) return 'Violet'
+  return 'Pink'
+}
+
+const svgSize = computed(() => (props.outerRadius + 20) * 2)
+const cx = computed(() => svgSize.value / 2)
+const cy = computed(() => svgSize.value / 2)
+
+function petalPath(index: number): string {
+  const count = props.petalCount
+  const angleStep = (2 * Math.PI) / count
+  const angle = angleStep * index - Math.PI / 2
+  const halfArc = (angleStep / 2) - (props.petalGap * Math.PI) / 180
+  const r1 = props.innerRadius
+  const r2 = props.outerRadius
+  const midR = (r1 + r2) / 2
+  const tipX = cx.value + r2 * Math.cos(angle)
+  const tipY = cy.value + r2 * Math.sin(angle)
+  const leftAngle = angle - halfArc
+  const rightAngle = angle + halfArc
+  const baseLeftX = cx.value + r1 * Math.cos(leftAngle)
+  const baseLeftY = cy.value + r1 * Math.sin(leftAngle)
+  const baseRightX = cx.value + r1 * Math.cos(rightAngle)
+  const baseRightY = cy.value + r1 * Math.sin(rightAngle)
+  const ctrlR = midR * 1.05
+  const ctrlLeftX = cx.value + ctrlR * Math.cos(leftAngle)
+  const ctrlLeftY = cy.value + ctrlR * Math.sin(leftAngle)
+  const ctrlRightX = cx.value + ctrlR * Math.cos(rightAngle)
+  const ctrlRightY = cy.value + ctrlR * Math.sin(rightAngle)
+  return [
+    \`M \${baseLeftX} \${baseLeftY}\`,
+    \`Q \${ctrlLeftX} \${ctrlLeftY} \${tipX} \${tipY}\`,
+    \`Q \${ctrlRightX} \${ctrlRightY} \${baseRightX} \${baseRightY}\`,
+    \`A \${r1} \${r1} 0 0 0 \${baseLeftX} \${baseLeftY}\`,
+    'Z'
+  ].join(' ')
+}
+
+const isOpen = ref(false)
+const isAnimating = ref(false)
+const hoveredIndex = ref<number | null>(null)
+const selectedColor = ref(props.modelValue)
+const previewColor = ref<string | null>(null)
+const svgRef = ref<SVGSVGElement | null>(null)
+const petalRefs = ref<SVGPathElement[]>([])
+const centerRef = ref<SVGCircleElement | null>(null)
+const displayColor = computed(() => previewColor.value ?? selectedColor.value)
+
+function openBlossom() {
+  if (isAnimating.value) return
+  isOpen.value = true
+  isAnimating.value = true
+  const petals = petalRefs.value
+  if (!petals.length) return
+  gsap.set(petals, { scale: 0, transformOrigin: \`\${cx.value}px \${cy.value}px\`, opacity: 0 })
+  gsap.to(petals, {
+    scale: 1, opacity: 1, duration: props.bloomDuration, ease: props.bloomEase,
+    stagger: { each: props.staggerDelay, from: 'start' },
+    onComplete: () => { isAnimating.value = false }
+  })
+  if (centerRef.value) {
+    gsap.to(centerRef.value, { scale: 0.85, duration: 0.15, ease: 'power2.out', transformOrigin: \`\${cx.value}px \${cy.value}px\`, yoyo: true, repeat: 1 })
+  }
+}
+
+function closeBlossom() {
+  if (isAnimating.value) return
+  isAnimating.value = true
+  const petals = petalRefs.value
+  if (!petals.length) return
+  gsap.to(petals, {
+    scale: 0, opacity: 0, duration: props.closeDuration, ease: props.closeEase,
+    stagger: { each: props.staggerDelay * 0.5, from: 'end' },
+    onComplete: () => { isOpen.value = false; isAnimating.value = false; hoveredIndex.value = null; previewColor.value = null }
+  })
+}
+
+function toggleBlossom() {
+  if (isOpen.value) closeBlossom()
+  else openBlossom()
+}
+
+function onPetalHover(index: number) {
+  if (!isOpen.value || isAnimating.value) return
+  hoveredIndex.value = index
+  previewColor.value = palette.value[index]?.hex ?? null
+  emit('preview', previewColor.value)
+  const petal = petalRefs.value[index]
+  if (petal) gsap.to(petal, { scale: 1.12, duration: 0.2, ease: 'power2.out', transformOrigin: \`\${cx.value}px \${cy.value}px\` })
+}
+
+function onPetalLeave(index: number) {
+  if (!isOpen.value) return
+  if (hoveredIndex.value === index) { hoveredIndex.value = null; previewColor.value = null; emit('preview', null) }
+  const petal = petalRefs.value[index]
+  if (petal) gsap.to(petal, { scale: 1, duration: 0.25, ease: 'elastic.out(1, 0.5)', transformOrigin: \`\${cx.value}px \${cy.value}px\` })
+}
+
+function onPetalClick(index: number) {
+  if (!isOpen.value) return
+  const color = palette.value[index]?.hex
+  if (!color) return
+  selectedColor.value = color
+  emit('update:modelValue', color)
+  emit('change', color)
+  const petal = petalRefs.value[index]
+  if (petal) {
+    gsap.timeline()
+      .to(petal, { scale: 1.2, duration: 0.12, ease: 'power2.out', transformOrigin: \`\${cx.value}px \${cy.value}px\` })
+      .to(petal, { scale: 1, duration: 0.3, ease: 'elastic.out(1, 0.4)', transformOrigin: \`\${cx.value}px \${cy.value}px\` })
+  }
+  setTimeout(() => closeBlossom(), 200)
+}
+
+function onDocumentClick(e: MouseEvent) {
+  if (!isOpen.value) return
+  const target = e.target as Node
+  if (svgRef.value && !svgRef.value.contains(target)) closeBlossom()
+}
+
+onMounted(() => document.addEventListener('click', onDocumentClick))
+onUnmounted(() => document.removeEventListener('click', onDocumentClick))
+` + '<' + `/script>
+
+<template>
+  <div class="blossom-picker inline-flex flex-col items-center gap-4">
+    <div class="relative select-none">
+      <svg ref="svgRef" :width="svgSize" :height="svgSize" :viewBox="\`0 0 \${svgSize} \${svgSize}\`"
+        class="overflow-visible" style="filter: drop-shadow(0 8px 32px rgba(0,0,0,0.35))">
+        <circle v-if="isOpen" :cx="cx" :cy="cy" :r="outerRadius + 10" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="18" />
+        <path v-for="(color, i) in palette" :key="i" :ref="(el) => { if (el) petalRefs[i] = el as SVGPathElement }"
+          :d="petalPath(i)" :fill="color.hex" :style="{
+            cursor: isOpen ? 'pointer' : 'default',
+            filter: hoveredIndex === i ? \`drop-shadow(0 0 8px \${color.hex}cc) brightness(1.15)\`
+              : selectedColor === color.hex && isOpen ? \`drop-shadow(0 0 6px \${color.hex}99) brightness(1.08)\` : 'none',
+            opacity: 0, scale: 0
+          }" @mouseenter="onPetalHover(i)" @mouseleave="onPetalLeave(i)" @click.stop="onPetalClick(i)" />
+        <circle :cx="cx" :cy="cy" :r="innerRadius - 1" fill="rgba(15,15,20,0.92)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+        <circle ref="centerRef" :cx="cx" :cy="cy" :r="innerRadius - 6" :fill="displayColor"
+          class="cursor-pointer" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4))" @click.stop="toggleBlossom" />
+        <g :transform="\`translate(\${cx}, \${cy})\`" class="pointer-events-none">
+          <line x1="-7" y1="0" x2="7" y2="0" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round"
+            :transform="isOpen ? 'rotate(45)' : 'rotate(0)'" style="transition: transform 0.3s ease" />
+          <line x1="0" y1="-7" x2="0" y2="7" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round"
+            :transform="isOpen ? 'rotate(45)' : 'rotate(0)'" style="transition: transform 0.3s ease" />
+        </g>
+      </svg>
+    </div>
+    <div v-if="showPreview" class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 backdrop-blur-sm">
+      <span class="h-3 w-3 rounded-full border border-white/20 transition-colors duration-200" :style="{ background: displayColor }" />
+      <span class="font-mono text-[10px] uppercase tracking-widest text-white/60">{{ displayColor }}</span>
+    </div>
+  </div>
+</template>`,
+      props: [
+        { name: 'modelValue', type: 'string', default: "'#ff6b6b'", description: 'Currently selected color (hex)' },
+        { name: 'petalCount', type: 'number', default: '12', description: 'Number of color petals in the blossom' },
+        { name: 'petalRadius', type: 'number', default: '36', description: 'Radius of each circular petal' },
+        { name: 'orbitRadius', type: 'number', default: '52', description: 'Distance from center to each petal center' },
+        { name: 'outerRingRadius', type: 'number', default: '100', description: 'Radius of the outer decorative ring' },
+        { name: 'outerRingWidth', type: 'number', default: '14', description: 'Stroke width of the outer ring' },
+        { name: 'centerRadius', type: 'number', default: '22', description: 'Radius of the center color swatch button' },
+        { name: 'bloomDuration', type: 'number', default: '0.55', description: 'Duration of the bloom open animation in seconds' },
+        { name: 'bloomEase', type: 'string', default: "'back.out(1.6)'", description: 'GSAP ease for the bloom open animation' },
+        { name: 'closeDuration', type: 'number', default: '0.35', description: 'Duration of the close animation in seconds' },
+        { name: 'closeEase', type: 'string', default: "'power2.in'", description: 'GSAP ease for the close animation' },
+        { name: 'staggerDelay', type: 'number', default: '0.035', description: 'Stagger delay between each petal animation in seconds' },
+        { name: 'showPreview', type: 'boolean', default: 'true', description: 'Show the hex color preview label below the picker' }
+      ],
+      events: [
+        { name: 'update:modelValue', payload: 'string', description: 'Emitted when a petal is clicked with the selected hex color' },
+        { name: 'change', payload: 'string', description: 'Emitted when the selected color changes' },
+        { name: 'preview', payload: 'string | null', description: 'Emitted on petal hover with the hovered color, or null on leave' }
+      ],
+      about: {
+        description: 'A flower-inspired color picker where circular color petals bloom outward from a center button. Each petal is a circle placed at orbit distance from center, creating a natural overlapping blossom pattern. Hover to preview, click to select.',
+        howItWorks: [
+          'Generates evenly-spaced hues (0°–360°) at 85% saturation and 65% lightness using HSL→hex conversion',
+          'Each petal is an SVG circle whose center is placed at orbitRadius distance from the picker center',
+          'Petals overlap naturally since petalRadius > half the arc spacing, creating a true blossom shape',
+          'On open, GSAP animates petals from scale 0 to 1 with a staggered back.out ease for a natural bloom effect',
+          'On close, petals collapse in reverse stagger order back to center',
+          'Hover triggers a scale-up (1.18×) with drop-shadow glow; click triggers a ripple then closes',
+          'The center circle displays the current/preview color and acts as the toggle trigger',
+          'Outside clicks close the picker via a document-level click listener'
+        ],
+        builtWith: ['Vue 3', 'GSAP', 'SVG', 'Tailwind CSS']
+      },
+      controls: [
+        { type: 'slider', key: 'petalCount', label: 'Petal Count', min: 6, max: 24, step: 1, default: 12, group: 'Layout' },
+        { type: 'slider', key: 'petalRadius', label: 'Petal Radius', min: 20, max: 60, step: 2, default: 36, group: 'Layout' },
+        { type: 'slider', key: 'orbitRadius', label: 'Orbit Radius', min: 30, max: 90, step: 2, default: 52, group: 'Layout' },
+        { type: 'slider', key: 'outerRingRadius', label: 'Outer Ring Radius', min: 70, max: 150, step: 4, default: 100, group: 'Layout' },
+        { type: 'slider', key: 'outerRingWidth', label: 'Outer Ring Width', min: 4, max: 28, step: 2, default: 14, group: 'Layout' },
+        { type: 'slider', key: 'bloomDuration', label: 'Bloom Duration (s)', min: 0.2, max: 1.2, step: 0.05, default: 0.55, group: 'Animation' },
+        { type: 'slider', key: 'closeDuration', label: 'Close Duration (s)', min: 0.1, max: 0.8, step: 0.05, default: 0.35, group: 'Animation' },
+        { type: 'slider', key: 'staggerDelay', label: 'Stagger Delay (s)', min: 0, max: 0.12, step: 0.005, default: 0.035, group: 'Animation' },
+        { type: 'select', key: 'bloomEase', label: 'Bloom Ease', group: 'Animation',
+          options: [
+            { value: 'back.out(1.6)', label: 'Back Out' },
+            { value: 'elastic.out(1, 0.5)', label: 'Elastic' },
+            { value: 'bounce.out', label: 'Bounce' },
+            { value: 'power3.out', label: 'Power3' },
+            { value: 'circ.out', label: 'Circ' }
+          ],
+          default: 'back.out(1.6)'
+        },
+        { type: 'toggle', key: 'showPreview', label: 'Show Preview', group: 'Display', default: true }
+      ]
     }
   }
 

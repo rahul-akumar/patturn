@@ -62,18 +62,10 @@ const onWheel = (e: WheelEvent) => {
                 ? 'text-white/40 hover:text-white/70'
                 : 'cursor-not-allowed text-white/20'
           ]">
-          <div class="flex items-center gap-3">
-            <span :class="[
-              'font-mono text-[10px] transition-colors duration-150',
-              isActive(component.slug) ? 'text-white/50' : 'text-white/20'
-            ]">
-              {{ component.id }}
-            </span>
-            <span :class="[
-              'text-sm transition-colors duration-150',
-              isActive(component.slug) ? 'font-semibold' : 'font-normal'
-            ]">{{ component.title }}</span>
-          </div>
+          <span :class="[
+            'text-sm transition-colors duration-150',
+            isActive(component.slug) ? 'font-semibold' : 'font-normal'
+          ]">{{ component.title }}</span>
           <span v-if="component.status !== 'ready'" :class="[
             'font-mono text-[8px] uppercase tracking-wider',
             component.status === 'progress' ? 'text-yellow-500/70' : 'text-white/15'
